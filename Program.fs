@@ -151,6 +151,15 @@ let getGridHandler: HttpHandler =
             return! json gridDto next ctx 
         }
 
+let clearGameHandler: HttpHandler =
+    fun next ctx ->
+        task {
+            initGrid 4
+            |> updateGame
+            
+            let gridDto = gameState.[0].Serialise()
+            return! json gridDto next ctx 
+        }
 
 let webApp =
     choose [
@@ -159,6 +168,7 @@ let webApp =
             choose [
                 route "/tick" >=> tickHandler
                 route "/" >=> getGridHandler
+                route "/clear" >=> clearGameHandler
             ]
         setStatusCode 404 >=> text "Not Found" ]
 
