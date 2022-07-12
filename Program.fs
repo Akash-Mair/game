@@ -76,8 +76,8 @@ let findExistingNeighbours (grid: Grid) (possibleNeighbours: (int * int) list) =
     grid.Cells
     |> List.filter (fun cell -> possibleNeighbours |> List.contains cell.Coordinates)
     
-let switchCell predicate cell =
-    if predicate then
+let switchCell shouldSwitch cell =
+    if shouldSwitch then
         match cell with     
         | Dead (x,y) -> Live (x,y)
         | Live (x,y) -> Dead (x,y)
