@@ -74,10 +74,7 @@ let getAllPossibleNeighbours (x,y) =
 
 let findExistingNeighbours (grid: Grid) (possibleNeighbours: (int * int) list) =
     grid.Cells
-    |> List.choose (fun cell ->
-        if possibleNeighbours |> List.contains cell.Coordinates then
-            Some cell
-        else None)
+    |> List.filter (fun cell -> possibleNeighbours |> List.contains cell.Coordinates)
     
 let switchCell predicate cell =
     if predicate then
